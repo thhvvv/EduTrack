@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTrack - Student Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .student-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar (same as index.html) -->
+        <div class="sidebar bg-white w-64 border-r border-gray-200 flex flex-col">
+            <div class="p-4 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-indigo-600 flex items-center">
+                    <i data-feather="book-open" class="mr-2"></i> EduTrack
+                </h1>
+            </div>
+            <div class="flex-1 overflow-y-auto">
+                <nav class="p-4">
+                    <div class="mb-6">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Main</h3>
+                        <a href="index.html" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 mb-1">
+                            <i data-feather="home" class="mr-3 text-gray-500"></i> Dashboard
+                        </a>
+                        <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md bg-indigo-50 text-indigo-700 mb-1">
+                            <i data-feather="users" class="mr-3 text-indigo-500"></i> Students
+                        </a>
+                        <a href="grades.html" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 mb-1">
+                            <i data-feather="award" class="mr-3 text-gray-500"></i> Grades
+                        </a>
+                        <a href="reports.html" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 mb-1">
+                            <i data-feather="file-text" class="mr-3 text-gray-500"></i> Reports
+                        </a>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Administration</h3>
+                        <a href="subjects.html" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 mb-1">
+                            <i data-feather="book" class="mr-3 text-gray-500"></i> Subjects
+                        </a>
+                        <a href="settings.html" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 mb-1">
+                            <i data-feather="settings" class="mr-3 text-gray-500"></i> Settings
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    <img src="http://static.photos/people/200x200/1" alt="User" class="w-10 h-10 rounded-full">
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900">John Doe</p>
+                        <p class="text-xs text-gray-500">Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 overflow-auto">
+            <header class="bg-white shadow-sm">
+                <div class="px-6 py-4 flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-gray-800">Student Management</h2>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <i data-feather="bell" class="text-gray-500"></i>
+                            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </div>
+                        <button class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <i data-feather="log-out" class="mr-1"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="p-6">
+                <!-- Student Management Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                    <div class="mb-4 md:mb-0">
+                        <h3 class="text-lg font-semibold text-gray-800">All Students</h3>
+                        <p class="text-sm text-gray-500">Manage student profiles and information</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <div class="relative">
+                            <input type="text" placeholder="Search students..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <i data-feather="search" class="absolute left-3 top-2.5 text-gray-400"></i>
+                        </div>
+                        <button class="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            <i data-feather="plus" class="mr-2 w-4 h-4"></i> Add Student
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="bg-white rounded-lg shadow p-4 mb-6">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Grade Level</label>
+                            <select class="text-sm border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option>All Grades</option>
+                                <option>Grade 9</option>
+                                <option>Grade 10</option>
+                                <option>Grade 11</option>
+                                <option>Grade 12</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                            <select class="text-sm border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option>All Students</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                                <option>Graduated</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+                            <select class="text-sm border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option>Name (A-Z)</option>
+                                <option>Name (Z-A)</option>
+                                <option>Grade Level</option>
+                                <option>GPA (High-Low)</option>
+                                <option>GPA (Low-High)</option>
+                            </select>
+                        </div>
+                        <button class="flex items-center text-sm text-indigo-600 hover:text-indigo-800 mt-6 md:mt-0">
+                            <i data-feather="filter" class="mr-1 w-4 h-4"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Student Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Student Card 1 -->
+                    <div class="student-card bg-white rounded-lg shadow overflow-hidden transition-all duration-200" data-aos="fade-up">
+                        <div class="p-4">
+                            <div class="flex items-center mb-4">
+                                <img src="http://static.photos/people/200x200/6" alt="Student" class="w-16 h-16 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Sarah Johnson</h4>
+                                    <p class="text-sm text-gray-500">Grade 11</p>
+                                    <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold bg-green-100 text-green-800 rounded-full">GPA: 3.9</span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 pt-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-500">Student ID:</span>
+                                    <span class="font-medium">S-2023-001</span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-500">Enrolled:</span>
+                                    <span class="font-medium">5 Subjects</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Status:</span>
+                                    <span class="font-medium text-green-600">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 flex justify-end space-x-2">
+                            <button class="p-2 text-gray-500 hover:text-indigo-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="edit" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 text-gray-500 hover:text-red-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 text-gray-500 hover:text-blue-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 2 -->
+                    <div class="student-card bg-white rounded-lg shadow overflow-hidden transition-all duration-200" data-aos="fade-up" data-aos-delay="100">
+                        <div class="p-4">
+                            <div class="flex items-center mb-4">
+                                <img src="http://static.photos/people/200x200/7" alt="Student" class="w-16 h-16 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Michael Chen</h4>
+                                    <p class="text-sm text-gray-500">Grade 12</p>
+                                    <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full">GPA: 3.8</span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 pt-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-500">Student ID:</span>
+                                    <span class="font-medium">S-2023-002</span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-500">Enrolled:</span>
+                                    <span class="font-medium">6 Subjects</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Status:</span>
+                                    <span class="font-medium text-green-600">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 flex justify-end space-x-2">
+                            <button class="p-2 text-gray-500 hover:text-indigo-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="edit" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 text-gray-500 hover:text-red-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 text-gray-500 hover:text-blue-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 3 -->
+                    <div class="student-card bg-white rounded-lg shadow overflow-hidden transition-all duration-200" data-aos="fade-up" data-aos-delay="200">
+                        <div class="p-4">
+                            <div class="flex items-center mb-4">
+                                <img src="http://static.photos/people/200x200/8" alt="Student" class="w-16 h-16 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Emma Rodriguez</h4>
+                                    <p class="text-sm text-gray-500">Grade 10</p>
+                                    <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold bg-purple-100 text-purple-800 rounded-full">GPA: 3.7</span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 pt-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-500">Student ID:</span>
+                                    <span class="font-medium">S-2023-003</span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-500">Enrolled:</span>
+                                    <span class="font-medium">4 Subjects</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Status:</span>
+                                    <span class="font-medium text-green-600">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 flex justify-end space-x-2">
+                            <button class="p-2 text-gray-500 hover:text-indigo-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="edit" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 text-gray-500 hover:text-red-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 text-gray-500 hover:text-blue-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 4 -->
+                    <div class="student-card bg-white rounded-lg shadow overflow-hidden transition-all duration-200" data-aos="fade-up" data-aos-delay="300">
+                        <div class="p-4">
+                            <div class="flex items-center mb-4">
+                                <img src="http://static.photos/people/200x200/9" alt="Student" class="w-16 h-16 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">David Kim</h4>
+                                    <p class="text-sm text-gray-500">Grade 11</p>
+                                    <span class="inline-block mt-1 px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 rounded-full">GPA: 3.6</span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 pt-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-500">Student ID:</span>
+                                    <span class="font-medium">S-2023-004</span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-500">Enrolled:</span>
+                                    <span class="font-medium">5 Subjects</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Status:</span>
+                                    <span class="font-medium text-green-600">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 flex justify-end space-x-2">
+                            <button class="p-2 text-gray-500 hover:text-indigo-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="edit" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 text-gray-500 hover:text-red-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 text-gray-500 hover:text-blue-600 rounded-full hover:bg-gray-100">
+                                <i data-feather="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-8 flex items-center justify-between">
+                    <div class="text-sm text-gray-500">
+                        Showing <span class="font-medium">1</span> to <span class="font-medium">4</span> of <span class="font-medium">1248</span> students
+                    </div>
+                    <div class="flex space-x-1">
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            Previous
+                        </button>
+                        <button class="px-3 py-1 border border-indigo-500 bg-indigo-50 text-indigo-600 rounded-md text-sm font-medium">
+                            1
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            2
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            3
+                        </button>
+                        <span class="px-3 py-1 text-sm text-gray-500">...</span>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            25
+                        </button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        AOS.init();
+        feather.replace();
+    </script>
+</body>
+</html>
