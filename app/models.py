@@ -22,6 +22,21 @@ class User(db.Model, UserMixin):
     def is_teacher(self):
         return self.role == "teacher"
 
+    def is_student(self):
+        return self.role == "student"
+
+
+# -------------------------
+# Student Model (wrapper for users with role=student)
+# -------------------------
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False, unique=True)
+    enrollment_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Relationship back to User
+    user = db.relationship("User", backref=db.backref("student_profile", uselist=False))
+
 
 # -------------------------
 # Subject Model
@@ -34,11 +49,11 @@ class Subject(db.Model):
 
 
 # -------------------------
-# Student Progress Model
+# Grade Model
 # -------------------------
-class Progress(db.Model):
+class Grade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    student_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey("student.id"), nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey("subject.id"), nullable=False)
     score = db.Column(db.Float, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
